@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crypto Master Trader Platform - Trade cryptocurrencies with advanced tools and secure payment methods">
+    <meta name="keywords" content="crypto trading, bitcoin, ethereum, forex, stocks, trading platform">
+    <meta name="author" content="Saim Amir">
+    <meta property="og:title" content="Crypto Master Trader Platform">
+    <meta property="og:description" content="Advanced cryptocurrency trading platform with multiple payment options">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cryptomastertrader.example">
+    <title>Crypto Master Trader Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #4a3dc1;
+            --accent-color: #00b894;
+            --danger-color: #d63031;
+            --warning-color: #fdcb6e;
+            --text-color: #2d3436;
+            --light-gray: #f5f6fa;
+            --medium-gray: #dfe6e9;
+            --dark-gray: #636e72;
+            --white: #ffffff;
+            --dark-bg: #1e272e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-gray);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        nav ul li a i {
+            margin-right: 0.3rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-btn {
+            margin-left: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .login-btn {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .signup-btn {
+            background-color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            color: var(--white);
+        }
+        
+        .signup-btn:hover {
+            background-color: #00a884;
+            border-color: #00a884;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop') no-repeat center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #00a884;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .main-content {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .trading-section {
+            margin-bottom: 3rem;
+        }
+        
+        .chart-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            height: 500px;
+        }
+        
+        #tradingview-chart {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .trading-pairs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pair-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--medium-gray);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .pair-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .pair-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .timeframe-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeframe-btn {
+            padding: 0.3rem 0.8rem;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .timeframe-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .timeframe-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .payment-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .payment-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--medium-gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .payment-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--dark-gray);
+        }
+        
+        .payment-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .payment-tab:hover {
+            color: var(--primary-color);
+        }
+        
+        .payment-content {
+            display: none;
+        }
+        
+        .payment-content.active {
+            display: block;
+        }
+        
+        .payment-method {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .payment-method h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-method h3 i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .payment-details {
+            background-color: var(--white);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .payment-details p {
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
+        .payment-details .copy-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .payment-form {
+            margin-top: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        .select-wrapper {
+            position: relative;
+        }
+        
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--dark-gray);
+        }
+        
+        select.form-control {
+            appearance: none;
+            padding-right: 2.5rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .ad-container {
+            background-color: var(--medium-gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .ad-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-modal.active {
+            display: flex;
+        }
+        
+        .auth-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .auth-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--dark-gray);
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .auth-content {
+            display: none;
+        }
+        
+        .auth-content.active {
+            display: block;
+        }
+        
+        .social-auth {
+            margin-top: 1.5rem;
+        }
+        
+        .social-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .social-btn i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+        }
+        
+        .facebook-btn {
+            background-color: #4267B2;
+            color: white;
+        }
+        
+        .apple-btn {
+            background-color: #000000;
+            color: white;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--medium-gray);
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-column ul li a i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-column p {
+            color: var(--medium-gray);
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .user-actions {
+                margin-left: auto;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .payment-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .payment-tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .auth-container {
+                padding: 1.5rem;
+            }
+            
+            .social-btns {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <span>Crypto Master Trader</span>
+                </div>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#trading"><i class="fas fa-chart-line"></i> Trading</a></li>
+                        <li><a href="#deposit"><i class="fas fa-money-bill-wave"></i> Deposit</a></li>
+                        <li><a href="#withdraw"><i class="fas fa-wallet"></i> Withdraw</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="user-actions">
+                    <button class="auth-btn login-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="auth-btn signup-btn" id="signupBtn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Advanced Crypto Trading Platform</h1>
+            <p>Trade Bitcoin, Ethereum, and other cryptocurrencies with low fees, secure payments, and professional trading tools.</p>
+            
+            <div class="btn-group">
+                <a href="#deposit" class="btn btn-accent">
+                    <i class="fas fa-money-bill-wave"></i> Deposit Now
+                </a>
+                <a href="#trading" class="btn btn-outline">
+                    <i class="fas fa-chart-line"></i> Start Trading
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="ad-container">
+        <div>
+            <span class="ad-label">Advertisement</span>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- Crypto Master Top Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="trading-section" id="trading">
+                <h2 class="section-title">Live Trading Charts</h2>
+                
+                <div class="trading-pairs">
+                    <button class="pair-btn active" data-pair="BTCUSDT">BTC/USDT</button>
+                    <button class="pair-btn" data-pair="ETHUSDT">ETH/USDT</button>
+                    <button class="pair-btn" data-pair="BNBUSDT">BNB/USDT</button>
+                    <button class="pair-btn" data-pair="SOLUSDT">SOL/USDT</button>
+                    <button class="pair-btn" data-pair="XRPUSDT">XRP/USDT</button>
+                </div>
+                
+                <div class="timeframe-selector">
+                    <button class="timeframe-btn active" data-timeframe="1h">1H</button>
+                    <button class="timeframe-btn" data-timeframe="4h">4H</button>
+                    <button class="timeframe-btn" data-timeframe="1d">1D</button>
+                    <button class="timeframe-btn" data-timeframe="1w">1W</button>
+                    <button class="timeframe-btn" data-timeframe="1M">1M</button>
+                </div>
+                
+                <div class="chart-container">
+                    <div id="tradingview-chart"></div>
+                </div>
+            </section>
+            
+            <div class="ad-container">
+                <div>
+                    <span class="ad-label">Advertisement</span>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                        crossorigin="anonymous"></script>
+                    <!-- Crypto Master Middle Rectangle -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                        data-ad-slot="YOUR_AD_SLOT_ID"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            
+            <section class="payment-section" id="deposit">
+                <h2 class="section-title">Deposit Funds</h2>
+                
+                <div class="payment-tabs">
+                    <button class="payment-tab active" data-tab="crypto-deposit">Crypto</button>
+                    <button class="payment-tab" data-tab="easypaisa-deposit">EasyPaisa</button>
+                    <button class="payment-tab" data-tab="jazzcash-deposit">JazzCash</button>
+                </div>
+                
+                <div class="payment-content active" id="crypto-deposit">
+                    <div class="payment-method">
+                        <h3><i class="fab fa-bitcoin"></i> Crypto Deposit</h3>
+                        <p>Send only supported cryptocurrencies to the deposit address below. Do not send other assets to this address.</p>
+                        
+                        <div class="payment-details">
+                            <h4>BEP20 Network (Recommended)</h4>
+                            <p>Address: <span id="bep20-address">0x2bf92fca719ded62ef94807c598b4900add5b5be</span>
+                                <button class="copy-btn" data-target="bep20-address">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </p>
+                            <p>Network: Binance Smart Chain (BEP20)</p>
+                            <p>Minimum deposit: 0.001 BTC / 0.01 ETH / 10 USDT</p>
+                        </div>
+                        
+                        <div class="payment-details">
+                            <h4>TRC20 Network</h4>
+                            <p>Address: <span id="trc20-address">TNPZq5ZQJhJQ5ZQJhJQ5ZQJhJQ5ZQJhJQ5ZQ</span>
+                                <button class="copy-btn" data-target="trc20-address">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </p>
+                            <p>Network: Tron (TRC20)</p>
+                            <p>Minimum deposit: 10 USDT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="deposit-amount">Deposit Amount</label>
+                            <input type="number" id="deposit-amount" class="form-control" placeholder="Enter amount">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deposit-currency">Currency</label>
+                            <div class="select-wrapper">
+                                <select id="deposit-currency" class="form-control">
+                                    <option value="BTC">Bitcoin (BTC)</option>
+                                    <option value="ETH">Ethereum (ETH)</option>
+                                    <option value="USDT" selected>Tether (USDT)</option>
+                                    <option value="BNB">Binance Coin (BNB)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deposit-network">Network</label>
+                            <div class="select-wrapper">
+                                <select id="deposit-network" class="form-control">
+                                    <option value="BEP20">BEP20 (Recommended)</option>
+                                    <option value="TRC20">TRC20</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent submit-btn">
+                            <i class="fas fa-paper-plane"></i> Generate Deposit Address
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="payment-content" id="easypaisa-deposit">
+                    <div class="payment-method">
+                        <h3><i class="fas fa-mobile-alt"></i> EasyPaisa Deposit</h3>
+                        <p>Send money via EasyPaisa to the following account number. Include your user ID in the transaction reference.</p>
+                        
+                        <div class="payment-details">
+                            <p>EasyPaisa Number: <span id="easypaisa-number">+923499336704</span>
+                                <button class="copy-btn" data-target="easypaisa-number">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </p>
+                            <p>Account Name: Saim Amir</p>
+                            <p>Minimum deposit: 500 PKR</p>
+                            <p>Processing time: 5-30 minutes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="easypaisa-amount">Deposit Amount (PKR)</label>
+                            <input type="number" id="easypaisa-amount" class="form-control" placeholder="Enter amount in PKR">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="easypaisa-reference">Transaction Reference (Your User ID)</label>
+                            <input type="text" id="easypaisa-reference" class="form-control" placeholder="Enter your user ID">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="easypaisa-screenshot">Payment Screenshot (Optional)</label>
+                            <input type="file" id="easypaisa-screenshot" class="form-control">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent submit-btn">
+                            <i class="fas fa-check-circle"></i> Confirm Deposit
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="payment-content" id="jazzcash-deposit">
+                    <div class="payment-method">
+                        <h3><i class="fas fa-mobile-alt"></i> JazzCash Deposit</h3>
+                        <p>Send money via JazzCash to the following account number. Include your user ID in the transaction reference.</p>
+                        
+                        <div class="payment-details">
+                            <p>JazzCash Number: <span id="jazzcash-number">+923045606081</span>
+                                <button class="copy-btn" data-target="jazzcash-number">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </p>
+                            <p>Account Name: Saim Amir</p>
+                            <p>Minimum deposit: 500 PKR</p>
+                            <p>Processing time: 5-30 minutes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="jazzcash-amount">Deposit Amount (PKR)</label>
+                            <input type="number" id="jazzcash-amount" class="form-control" placeholder="Enter amount in PKR">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jazzcash-reference">Transaction Reference (Your User ID)</label>
+                            <input type="text" id="jazzcash-reference" class="form-control" placeholder="Enter your user ID">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jazzcash-screenshot">Payment Screenshot (Optional)</label>
+                            <input type="file" id="jazzcash-screenshot" class="form-control">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent submit-btn">
+                            <i class="fas fa-check-circle"></i> Confirm Deposit
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="payment-section" id="withdraw">
+                <h2 class="section-title">Withdraw Funds</h2>
+                
+                <div class="payment-tabs">
+                    <button class="payment-tab active" data-tab="crypto-withdraw">Crypto</button>
+                    <button class="payment-tab" data-tab="easypaisa-withdraw">EasyPaisa</button>
+                    <button class="payment-tab" data-tab="jazzcash-withdraw">JazzCash</button>
+                </div>
+                
+                <div class="payment-content active" id="crypto-withdraw">
+                    <div class="payment-method">
+                        <h3><i class="fab fa-bitcoin"></i> Crypto Withdrawal</h3>
+                        <p>Withdraw your funds to any external cryptocurrency wallet. Ensure the address is correct before submitting.</p>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="withdraw-currency">Currency</label>
+                            <div class="select-wrapper">
+                                <select id="withdraw-currency" class="form-control">
+                                    <option value="BTC">Bitcoin (BTC)</option>
+                                    <option value="ETH">Ethereum (ETH)</option>
+                                    <option value="USDT" selected>Tether (USDT)</option>
+                                    <option value="BNB">Binance Coin (BNB)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="withdraw-network">Network</label>
+                            <div class="select-wrapper">
+                                <select id="withdraw-network" class="form-control">
+                                    <option value="BEP20">BEP20 (Recommended)</option>
+                                    <option value="TRC20">TRC20</option>
+                                    <option value="ERC20">ERC20</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="withdraw-address">Withdrawal Address</label>
+                            <input type="text" id="withdraw-address" class="form-control" placeholder="Enter your wallet address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="withdraw-amount">Amount</label>
+                            <input type="number" id="withdraw-amount" class="form-control" placeholder="Enter amount to withdraw">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="withdraw-fee">Network Fee</label>
+                            <input type="text" id="withdraw-fee" class="form-control" value="1.5 USDT" readonly>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent submit-btn">
+                            <i class="fas fa-paper-plane"></i> Request Withdrawal
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="payment-content" id="easypaisa-withdraw">
+                    <div class="payment-method">
+                        <h3><i class="fas fa-mobile-alt"></i> EasyPaisa Withdrawal</h3>
+                        <p>Withdraw your funds to your EasyPaisa account. Ensure your account number is correct.</p>
+                        <p>Processing time: 1-4 hours (Monday to Friday, 9AM to 5PM)</p>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="easypaisa-withdraw-number">EasyPaisa Number</label>
+                            <input type="text" id="easypaisa-withdraw-number" class="form-control" placeholder="Enter your EasyPaisa number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="easypaisa-withdraw-amount">Amount (PKR)</label>
+                            <input type="number" id="easypaisa-withdraw-amount" class="form-control" placeholder="Enter amount in PKR">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="easypaisa-withdraw-fee">Withdrawal Fee</label>
+                            <input type="text" id="easypaisa-withdraw-fee" class="form-control" value="50 PKR" readonly>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent submit-btn">
+                            <i class="fas fa-paper-plane"></i> Request Withdrawal
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="payment-content" id="jazzcash-withdraw">
+                    <div class="payment-method">
+                        <h3><i class="fas fa-mobile-alt"></i> JazzCash Withdrawal</h3>
+                        <p>Withdraw your funds to your JazzCash account. Ensure your account number is correct.</p>
+                        <p>Processing time: 1-4 hours (Monday to Friday, 9AM to 5PM)</p>
+                    </div>
+                    
+                    <div class="payment-form">
+                        <div class="form-group">
+                            <label for="jazzcash-withdraw-number">JazzCash Number</label>
+                            <input type="text" id="jazzcash-withdraw-number" class="form-control" placeholder="Enter your JazzCash number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jazzcash-withdraw-amount">Amount (PKR)</label>
+                            <input type="number" id="jazzcash-withdraw-amount" class="form-control" placeholder="Enter amount in PKR">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jazzcash-withdraw-fee">Withdrawal Fee</label>
+                            <input type="text" id="jazzcash-withdraw-fee" class="form-control" value="50 PKR" readonly>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-accent submit-btn">
+                            <i class="fas fa-paper-plane"></i> Request Withdrawal
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="ad-container">
+                <div>
+                    <span class="ad-label">Advertisement</span>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                        crossorigin="anonymous"></script>
+                    <!-- Crypto Master Bottom Banner -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                        data-ad-slot="YOUR_AD_SLOT_ID"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            
+            <section class="info-section">
+                <h2 class="section-title">Why Choose Crypto Master Trader?</h2>
+                <p>We provide a secure and user-friendly platform for cryptocurrency trading with multiple deposit and withdrawal options.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure Trading</h3>
+                        <p>Your funds and data are protected with advanced security measures including 2FA and cold storage.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Fast Transactions</h3>
+                        <p>Quick deposit and withdrawal processing times to ensure you can trade when you want.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Multiple Payment Options</h3>
+                        <p>Deposit and withdraw using crypto, EasyPaisa, JazzCash, and more payment methods.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Advanced Trading Tools</h3>
+                        <p>Professional charts, indicators, and trading features for both beginners and experts.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Our customer support team is available around the clock to assist you.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <h3>Low Fees</h3>
+                        <p>Competitive trading and withdrawal fees to maximize your profits.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <div class="auth-content active" id="login">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="login-email">Email or Username</label>
+                        <input type="text" id="login-email" class="form-control" placeholder="Enter your email or username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent submit-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    
+                    <div class="social-auth">
+                        <p style="text-align: center; margin: 1rem 0; color: var(--dark-gray);">Or login with</p>
+                        
+                        <div class="social-btns">
+                            <button type="button" class="social-btn google-btn">
+                                <i class="fab fa-google"></i> Google
+                            </button>
+                            <button type="button" class="social-btn facebook-btn">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </button>
+                            <button type="button" class="social-btn apple-btn">
+                                <i class="fab fa-apple"></i> Apple
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+                        <p><a href="#">Forgot password?</a></p>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="auth-content" id="signup">
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" class="form-control" placeholder="Choose a username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="agree-terms" required>
+                            <label for="agree-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent submit-btn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    
+                    <div class="social-auth">
+                        <p style="text-align: center; margin: 1rem 0; color: var(--dark-gray);">Or sign up with</p>
+                        
+                        <div class="social-btns">
+                            <button type="button" class="social-btn google-btn">
+                                <i class="fab fa-google"></i> Google
+                            </button>
+                            <button type="button" class="social-btn facebook-btn">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </button>
+                            <button type="button" class="social-btn apple-btn">
+                                <i class="fab fa-apple"></i> Apple
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Crypto Master Trader</h3>
+                    <p>Advanced cryptocurrency trading platform with multiple payment options and professional trading tools.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#trading"><i class="fas fa-chevron-right"></i> Trading</a></li>
+                        <li><a href="#deposit"><i class="fas fa-chevron-right"></i> Deposit</a></li>
+                        <li><a href="#withdraw"><i class="fas fa-chevron-right"></i> Withdraw</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Payment Methods</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cryptocurrency</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> EasyPaisa</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> JazzCash</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Bank Transfer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Fees</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> API Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AML Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Risk Disclosure</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> Crypto Master Trader Platform. All rights reserved.</p>
+                <p>Developed by Saim Amir</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Auth modal functionality
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const authModal = document.getElementById('authModal');
+        const closeModal = document.getElementById('closeModal');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        
+        function openAuthModal(tab) {
+            authModal.classList.add('active');
+            
+            // Switch to the specified tab
+            const tabs = document.querySelectorAll('.auth-tab');
+            const contents = document.querySelectorAll('.auth-content');
+            
+            tabs.forEach(tabEl => tabEl.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const selectedTab = document.querySelector(`.auth-tab[data-tab="${tab}"]`);
+            const selectedContent = document.getElementById(tab);
+            
+            if (selectedTab && selectedContent) {
+                selectedTab.classList.add('active');
+                selectedContent.classList.add('active');
+            }
+        }
+        
+        loginBtn.addEventListener('click', () => openAuthModal('login'));
+        signupBtn.addEventListener('click', () => openAuthModal('signup'));
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAuthModal('signup');
+        });
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAuthModal('login');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            authModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.classList.remove('active');
+            }
+        });
+        
+        // Payment tabs functionality
+        const paymentTabs = document.querySelectorAll('.payment-tab');
+        
+        paymentTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                paymentTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update active content
+                const contents = document.querySelectorAll('.payment-content');
+                contents.forEach(content => content.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Copy buttons functionality
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                const textToCopy = targetElement.textContent;
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                    }, 2000);
+                });
+            });
+        });
+        
+        // Trading chart implementation
+        const chartContainer = document.getElementById('tradingview-chart');
+        const chart = LightweightCharts.createChart(chartContainer, {
+            width: chartContainer.clientWidth,
+            height: chartContainer.clientHeight,
+            layout: {
+                backgroundColor: '#ffffff',
+                textColor: '#2d3436',
+            },
+            grid: {
+                vertLines: {
+                    color: '#dfe6e9',
+                },
+                horzLines: {
+                    color: '#dfe6e9',
+                },
+            },
+            crosshair: {
+                mode: LightweightCharts.CrosshairMode.Normal,
+            },
+            rightPriceScale: {
+                borderColor: '#dfe6e9',
+            },
+            timeScale: {
+                borderColor: '#dfe6e9',
+            },
+        });
+        
+        const candleSeries = chart.addCandlestickSeries({
+            upColor: '#00b894',
+            downColor: '#d63031',
+            borderDownColor: '#d63031',
+            borderUpColor: '#00b894',
+            wickDownColor: '#d63031',
+            wickUpColor: '#00b894',
+        });
+        
+        // Sample data for the chart
+        function getRandomPrice(basePrice, volatility) {
+            return basePrice + basePrice * volatility * (Math.random() - 0.5);
+        }
+        
+        function generateSampleData() {
+            const basePrice = 50000;
+            const volatility = 0.02;
+            let currentTime = Math.floor(Date.now() / 1000);
+            const data = [];
+            
+            for (let i = 0; i < 100; i++) {
+                const open = getRandomPrice(basePrice, volatility);
+                const close = getRandomPrice(open, volatility);
+                const high = Math.max(open, close) * (1 + Math.random() * 0.01);
+                const low = Math.min(open, close) * (1 - Math.random() * 0.01);
+                
+                data.push({
+                    time: currentTime,
+                    open,
+                    high,
+                    low,
+                    close,
+                });
+                
+                currentTime -= 3600; // 1 hour step
+            }
+            
+            return data.reverse();
+        }
+        
+        candleSeries.setData(generateSampleData());
+        
+        // Trading pair buttons
+        const pairButtons = document.querySelectorAll('.pair-btn');
+        
+        pairButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                pairButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // In a real app, you would fetch new data for the selected pair
+                candleSeries.setData(generateSampleData());
+            });
+        });
+        
+        // Timeframe buttons
+        const timeframeButtons = document.querySelectorAll('.timeframe-btn');
+        
+        timeframeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                timeframeButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // In a real app, you would adjust the chart timeframe
+            });
+        });
+        
+        // Handle form submissions
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login functionality would be implemented here');
+            authModal.classList.remove('active');
+        });
+        
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Signup functionality would be implemented here');
+            authModal.classList.remove('active');
+        });
+        
+        // Resize chart when window resizes
+        window.addEventListener('resize', () => {
+            chart.applyOptions({
+                width: chartContainer.clientWidth,
+                height: chartContainer.clientHeight,
+            });
+        });
+        
+        // Structured data for SEO
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Crypto Master Trader Platform",
+            "url": "https://cryptomastertrader.example",
+            "description": "Advanced cryptocurrency trading platform with multiple payment options and professional trading tools",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Saim Amir"
+            }
+        };
+        
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(structuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
