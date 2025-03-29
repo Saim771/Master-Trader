@@ -1018,3 +1018,478 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Previous head content remains the same -->
+    <style>
+        /* Add these new styles for the auth modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .auth-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: all 0.3s;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .auth-content {
+            display: none;
+        }
+
+        .auth-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-item input {
+            margin-right: 0.5rem;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Previous header content remains the same -->
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="auth-content active" id="login">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                        <div class="error-message" id="loginEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                        <div class="error-message" id="loginPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    
+                    <div class="success-message" id="loginSuccess"></div>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" id="switchToSignup">Sign up</a></p>
+                        <p><a href="#" id="forgotPassword">Forgot password?</a></p>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Signup Form -->
+            <div class="auth-content" id="signup">
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
+                        <div class="error-message" id="signupNameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                        <div class="error-message" id="signupEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                        <div class="error-message" id="signupPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupConfirm">Confirm Password</label>
+                        <input type="password" id="signupConfirm" class="form-control" placeholder="Confirm your password" required>
+                        <div class="error-message" id="signupConfirmError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        <div class="error-message" id="termsError"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-accent" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    
+                    <div class="success-message" id="signupSuccess"></div>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rest of your HTML content remains the same -->
+
+    <script>
+        // ======================
+        // AUTHENTICATION SYSTEM
+        // ======================
+        
+        // DOM Elements
+        const authModal = document.getElementById('authModal');
+        const closeModal = document.getElementById('closeModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authContents = document.querySelectorAll('.auth-content');
+        
+        // Open Modal Function
+        function openAuthModal(tab) {
+            authModal.style.display = 'flex';
+            
+            // Switch to the specified tab
+            authTabs.forEach(tabEl => tabEl.classList.remove('active'));
+            authContents.forEach(content => content.classList.remove('active'));
+            
+            const selectedTab = document.querySelector(`.auth-tab[data-tab="${tab}"]`);
+            const selectedContent = document.getElementById(tab);
+            
+            if (selectedTab && selectedContent) {
+                selectedTab.classList.add('active');
+                selectedContent.classList.add('active');
+            }
+        }
+        
+        // Event Listeners
+        loginBtn.addEventListener('click', () => openAuthModal('login'));
+        signupBtn.addEventListener('click', () => openAuthModal('signup'));
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAuthModal('signup');
+        });
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAuthModal('login');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            authModal.style.display = 'none';
+            clearFormErrors();
+        });
+        
+        // Close modal when clicking outside
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+                clearFormErrors();
+            }
+        });
+        
+        // Tab Switching
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                authContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+                
+                clearFormErrors();
+            });
+        });
+        
+        // ======================
+        // FORM VALIDATION & AUTH
+        // ======================
+        
+        // Simulated Database (using localStorage)
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify([]));
+        }
+        
+        // Get users from "database"
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('users'));
+        }
+        
+        // Clear all error messages
+        function clearFormErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+            document.querySelectorAll('.success-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+        }
+        
+        // Show error message
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+        
+        // Show success message
+        function showSuccess(elementId, message) {
+            const successEl = document.getElementById(elementId);
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+        }
+        
+        // Login Form Submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearFormErrors();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Basic validation
+            if (!email) {
+                showError('loginEmailError', 'Email is required');
+                return;
+            }
+            
+            if (!password) {
+                showError('loginPasswordError', 'Password is required');
+                return;
+            }
+            
+            // Check if user exists
+            const users = getUsers();
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                showSuccess('loginSuccess', 'Login successful! Redirecting...');
+                
+                // In a real app, you would:
+                // 1. Set authentication token
+                // 2. Redirect to dashboard
+                setTimeout(() => {
+                    authModal.style.display = 'none';
+                    alert(`Welcome back, ${user.name}!`);
+                }, 1500);
+            } else {
+                showError('loginPasswordError', 'Invalid email or password');
+            }
+        });
+        
+        // Signup Form Submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearFormErrors();
+            
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirm').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            
+            // Validation
+            if (!name) {
+                showError('signupNameError', 'Full name is required');
+                return;
+            }
+            
+            if (!email) {
+                showError('signupEmailError', 'Email is required');
+                return;
+            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+                showError('signupEmailError', 'Please enter a valid email');
+                return;
+            }
+            
+            if (!password) {
+                showError('signupPasswordError', 'Password is required');
+                return;
+            } else if (password.length < 6) {
+                showError('signupPasswordError', 'Password must be at least 6 characters');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('signupConfirmError', 'Passwords do not match');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                showError('termsError', 'You must agree to the terms');
+                return;
+            }
+            
+            // Check if email already exists
+            const users = getUsers();
+            const emailExists = users.some(u => u.email === email);
+            
+            if (emailExists) {
+                showError('signupEmailError', 'Email already registered');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                email,
+                password, // In real app, NEVER store plain text passwords
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save to "database"
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Show success
+            showSuccess('signupSuccess', 'Account created successfully! Redirecting...');
+            
+            // Clear form
+            this.reset();
+            
+            // In a real app, you would:
+            // 1. Automatically log the user in
+            // 2. Redirect to dashboard
+            setTimeout(() => {
+                authModal.style.display = 'none';
+                alert(`Welcome to Crypto Master Trader, ${name}!`);
+            }, 1500);
+        });
+        
+        // Forgot Password (basic implementation)
+        document.getElementById('forgotPassword').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Password reset functionality would be implemented here');
+        });
+        
+        // Rest of your existing JavaScript
+    </script>
+</body>
+</html>
+
