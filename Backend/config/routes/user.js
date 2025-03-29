@@ -1,30 +1,21 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const express = require('express');
+const router = express.Router();
+const { protect } = require('../middlewares/auth');
+const { 
+  getUsers,
+  getUser,
+  updateUser,
+  deleteUser 
+} = require('../controllers/users');
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+// Protected routes (require valid JWT)
+router.route('/')
+  .get(protect, getUsers);
 
-UserSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+router.route('/:id')
+  .get(protect, getUser)
+  .put(protect, updateUser)
+  .delete(protect, deleteUser);
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = router;
+  
