@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crypto Master Trader - Advanced cryptocurrency trading platform with secure deposits, withdrawals, and live charts.">
+    <meta name="keywords" content="crypto trading, bitcoin, ethereum, forex, stocks, trading platform">
+    <meta name="author" content="Saim Amir">
+    <title>Crypto Master Trader | Advanced Trading Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #4a3dc1;
+            --accent: #00b894;
+            --danger: #d63031;
+            --warning: #fdcb6e;
+            --text: #2d3436;
+            --light-bg: #f5f6fa;
+            --card-bg: #ffffff;
+            --border: #dfe6e9;
+            --dark-bg: #1e272e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a i {
+            margin-right: 0.3rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+        .login-btn {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .signup-btn {
+            background: var(--accent);
+            border: 2px solid var(--accent);
+            color: white;
+        }
+
+        .signup-btn:hover {
+            background: #00a884;
+            border-color: #00a884;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop') no-repeat center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeIn 1.4s ease;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: #00a884;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Trading Pairs Section */
+        .trading-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .trading-pairs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .pair-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            background: var(--border);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pair-btn.active, .pair-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .timeframe-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .timeframe-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timeframe-btn.active, .timeframe-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 500px;
+        }
+
+        /* Market Overview */
+        .market-overview {
+            padding: 3rem 0;
+            background: var(--card-bg);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .market-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .market-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .market-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .market-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .market-card-title {
+            font-weight: 600;
+        }
+
+        .market-card-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .market-card-change {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .market-card-change.positive {
+            color: var(--accent);
+        }
+
+        .market-card-change.negative {
+            color: var(--danger);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        /* Ad Container */
+        .ad-container {
+            background: var(--border);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #dfe6e9;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #dfe6e9;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <span>Crypto Master Trader</span>
+                </div>
+
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#trading"><i class="fas fa-chart-line"></i> Trading</a></li>
+                        <li><a href="#deposit"><i class="fas fa-money-bill-wave"></i> Deposit</a></li>
+                        <li><a href="#withdraw"><i class="fas fa-wallet"></i> Withdraw</a></li>
+                        <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+                    </ul>
+                </nav>
+
+                <div class="user-actions">
+                    <button class="auth-btn login-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="auth-btn signup-btn" id="signupBtn">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Trade Cryptocurrencies with Confidence</h1>
+            <p>Join thousands of traders on the most secure and advanced crypto trading platform. Buy, sell, and trade Bitcoin, Ethereum, and more.</p>
+            
+            <div class="btn-group">
+                <a href="#deposit" class="btn btn-primary">
+                    <i class="fas fa-money-bill-wave"></i> Deposit Now
+                </a>
+                <a href="#trading" class="btn btn-outline">
+                    <i class="fas fa-chart-line"></i> Start Trading
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Section -->
+    <section class="trading-section" id="trading">
+        <div class="container">
+            <h2 class="section-title">Live Trading Charts</h2>
+            
+            <div class="trading-pairs">
+                <button class="pair-btn active" data-pair="BTCUSDT">BTC/USDT</button>
+                <button class="pair-btn" data-pair="ETHUSDT">ETH/USDT</button>
+                <button class="pair-btn" data-pair="BNBUSDT">BNB/USDT</button>
+                <button class="pair-btn" data-pair="SOLUSDT">SOL/USDT</button>
+                <button class="pair-btn" data-pair="XRPUSDT">XRP/USDT</button>
+            </div>
+            
+            <div class="timeframe-selector">
+                <button class="timeframe-btn active" data-timeframe="1h">1H</button>
+                <button class="timeframe-btn" data-timeframe="4h">4H</button>
+                <button class="timeframe-btn" data-timeframe="1d">1D</button>
+                <button class="timeframe-btn" data-timeframe="1w">1W</button>
+                <button class="timeframe-btn" data-timeframe="1M">1M</button>
+            </div>
+            
+            <div class="chart-container">
+                <div id="tradingview-chart"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Overview -->
+    <section class="market-overview">
+        <div class="container">
+            <h2 class="section-title">Market Overview</h2>
+            
+            <div class="market-grid">
+                <div class="market-card">
+                    <div class="market-card-header">
+                        <div class="market-card-icon" style="background: #f7931a;">
+                            <i class="fab fa-bitcoin"></i>
+                        </div>
+                        <div class="market-card-title">Bitcoin (BTC)</div>
+                    </div>
+                    <div class="market-card-price">$42,856.12</div>
+                    <div class="market-card-change positive">
+                        <i class="fas fa-arrow-up"></i> +2.34% (24h)
+                    </div>
+                </div>
+                
+                <div class="market-card">
+                    <div class="market-card-header">
+                        <div class="market-card-icon" style="background: #627eea;">
+                            <i class="fab fa-ethereum"></i>
+                        </div>
+                        <div class="market-card-title">Ethereum (ETH)</div>
+                    </div>
+                    <div class="market-card-price">$2,345.67</div>
+                    <div class="market-card-change positive">
+                        <i class="fas fa-arrow-up"></i> +1.78% (24h)
+                    </div>
+                </div>
+                
+                <div class="market-card">
+                    <div class="market-card-header">
+                        <div class="market-card-icon" style="background: #f0b90b;">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="market-card-title">Binance Coin (BNB)</div>
+                    </div>
+                    <div class="market-card-price">$312.45</div>
+                    <div class="market-card-change negative">
+                        <i class="fas fa-arrow-down"></i> -0.56% (24h)
+                    </div>
+                </div>
+                
+                <div class="market-card">
+                    <div class="market-card-header">
+                        <div class="market-card-icon" style="background: #00aef3;">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="market-card-title">Solana (SOL)</div>
+                    </div>
+                    <div class="market-card-price">$102.89</div>
+                    <div class="market-card-change positive">
+                        <i class="fas fa-arrow-up"></i> +5.23% (24h)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- Crypto Master Top Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Trading</h3>
+                    <p>Your funds are protected with advanced security measures including 2FA and cold storage.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Fast Transactions</h3>
+                    <p>Instant deposits and withdrawals with multiple payment options.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Advanced Charts</h3>
+                    <p>Professional trading tools with real-time market data.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated customer support available anytime.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3>Low Fees</h3>
+                    <p>Competitive trading fees to maximize your profits.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Trade on the go with our responsive platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Crypto Master Trader</h3>
+                    <p>Advanced cryptocurrency trading platform with secure deposits, withdrawals, and professional tools.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#trading"><i class="fas fa-chevron-right"></i> Trading</a></li>
+                        <li><a href="#deposit"><i class="fas fa-chevron-right"></i> Deposit</a></li>
+                        <li><a href="#withdraw"><i class="fas fa-chevron-right"></i> Withdraw</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AML Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-envelope"></i> support@cryptomaster.com</a></li>
+                        <li><a href="#"><i class="fab fa-telegram"></i> Telegram Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> Crypto Master Trader. All rights reserved.</p>
+                <p>Developed by <strong>Saim Amir</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Trading Charts Script -->
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@3.8.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+
+        // Set Current Year in Footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Trading Chart Implementation
+        const chartContainer = document.getElementById('tradingview-chart');
+        const chart = LightweightCharts.createChart(chartContainer, {
+            width: chartContainer.clientWidth,
+            height: chartContainer.clientHeight,
+            layout: {
+                backgroundColor: '#ffffff',
+                textColor: '#2d3436',
+            },
+            grid: {
+                vertLines: {
+                    color: '#dfe6e9',
+                },
+                horzLines: {
+                    color: '#dfe6e9',
+                },
+            },
+            crosshair: {
+                mode: LightweightCharts.CrosshairMode.Normal,
+            },
+            rightPriceScale: {
+                borderColor: '#dfe6e9',
+            },
+            timeScale: {
+                borderColor: '#dfe6e9',
+            },
+        });
+
+        const candleSeries = chart.addCandlestickSeries({
+            upColor: '#00b894',
+            downColor: '#d63031',
+            borderDownColor: '#d63031',
+            borderUpColor: '#00b894',
+            wickDownColor: '#d63031',
+            wickUpColor: '#00b894',
+        });
+
+        // Sample Data for Chart
+        function getRandomPrice(basePrice, volatility) {
+            return basePrice + basePrice * volatility * (Math.random() - 0.5);
+        }
+
+        function generateSampleData() {
+            const basePrice = 50000;
+            const volatility = 0.02;
+            let currentTime = Math.floor(Date.now() / 1000);
+            const data = [];
+            
+            for (let i = 0; i < 100; i++) {
+                const open = getRandomPrice(basePrice, volatility);
+                const close = getRandomPrice(open, volatility);
+                const high = Math.max(open, close) * (1 + Math.random() * 0.01);
+                const low = Math.min(open, close) * (1 - Math.random() * 0.01);
+                
+                data.push({
+                    time: currentTime,
+                    open,
+                    high,
+                    low,
+                    close,
+                });
+                
+                currentTime -= 3600; // 1 hour step
+            }
+            
+            return data.reverse();
+        }
+
+        candleSeries.setData(generateSampleData());
+
+        // Trading Pair Buttons
+        const pairButtons = document.querySelectorAll('.pair-btn');
+        
+        pairButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                pairButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // In a real app, fetch new data for the selected pair
+                candleSeries.setData(generateSampleData());
+            });
+        });
+
+        // Timeframe Buttons
+        const timeframeButtons = document.querySelectorAll('.timeframe-btn');
+        
+        timeframeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                timeframeButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // In a real app, adjust the chart timeframe
+            });
+        });
+
+        // Resize Chart on Window Resize
+        window.addEventListener('resize', () => {
+            chart.applyOptions({
+                width: chartContainer.clientWidth,
+                height: chartContainer.clientHeight,
+            });
+        });
+
+        // Login/Signup Modal (Basic Implementation)
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        
+        loginBtn.addEventListener('click', () => {
+            alert('Login functionality will be implemented here!');
+        });
+        
+        signupBtn.addEventListener('click', () => {
+            alert('Signup functionality will be implemented here!');
+        });
+
+        // Structured Data for SEO
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Crypto Master Trader",
+            "url": "https://cryptomastertrader.example",
+            "description": "Advanced cryptocurrency trading platform with secure deposits, withdrawals, and live charts.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "author": {
+                "@type": "Person",
+                "name": "Saim Amir"
+            }
+        };
+
+        const scriptTag = document.createElement('script');
+        scriptTag.type = 'application/ld+json';
+        scriptTag.text = JSON.stringify(structuredData);
+        document.head.appendChild(scriptTag);
+    </script>
+</body>
+</html>
